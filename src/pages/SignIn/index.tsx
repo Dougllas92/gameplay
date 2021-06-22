@@ -11,8 +11,15 @@ import {
 import IllustrationImg from '../../assets/illustration.png'
 
 import { ButtonIcon } from '../../components/Button'
+import { useNavigation } from '@react-navigation/native'
 
-export function SignIn() {
+const SignIn: React.FC = () => {
+  const navigation = useNavigation()
+
+  function navigateToHome() {
+    navigation.navigate('Home')
+  }
+  
   return(
     <Wrapper>
       <Image
@@ -21,18 +28,22 @@ export function SignIn() {
       />
       <Content>
         <Title>
-          Organize{'\n'} suas jogatinas{'\n'} facilmente
+          Conecte-se {'\n'}e organize suas{'\n'} jogatinas
         </Title>
 
         <Subtitle>
-          Crie grupos para jogar seus games{'\n'} favoritos com seus amigos
+          Crie grupos para jogar seus games{'\n'} 
+          favoritos com seus amigos
         </Subtitle>
 
         <ButtonIcon 
           title='Entrar com Discord'
           activeOpacity={0.7}
+          onPress={navigateToHome}
         />
       </Content>
     </Wrapper>
   )
 }
+
+export default SignIn;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacityProps} from 'react-native'
+import { RectButtonProps } from 'react-native-gesture-handler'
 
 import { 
   Wrapper,
@@ -10,7 +10,7 @@ import {
 
 import DiscordImg from '../../assets/discord.png'
 
-interface Props extends TouchableOpacityProps {
+interface Props extends RectButtonProps {
   title: string
 }
 

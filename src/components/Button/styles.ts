@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
+import { RectButton } from 'react-native-gesture-handler'
 
-export const Wrapper = styled.TouchableOpacity`
+export const Wrapper = styled(RectButton)`
   width: 100%;
   height: 56px;
   background-color: ${({theme}) => theme.colors.primary};
@@ -25,4 +26,5 @@ export const Title = styled.Text`
   color: ${({theme}) => theme.colors.heading};
   font-size: 15px;
   text-align: center;
+  font-family: ${({theme}) => theme.fonts.text500};
 `
