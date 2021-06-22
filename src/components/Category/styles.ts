@@ -1,6 +1,7 @@
 import styled from "styled-components/native"
 import { RectButton } from 'react-native-gesture-handler'
 import { LinearGradient } from "expo-linear-gradient"
+import { Animated } from 'react-native'
 
 type Props = {
   check: boolean
@@ -19,7 +20,7 @@ export const Gradient = styled(LinearGradient)`
   border-radius: 8px;
 `
 
-export const Content = styled.View<Props>`
+export const Content = styled(Animated.View)<Props>`
   opacity: ${(props) => props.check ? 1 : 0.4};
   width: 100px;
   height: 116px;
@@ -30,7 +31,7 @@ export const Content = styled.View<Props>`
   border-radius: 8px;
 `
 
-export const IconView = styled.View<Props>`
+export const IconView = styled(Animated.View)<Props>`
   width: 8px;
   height: 8px;
   background-color: ${(props) => props.check ? props.theme.colors.primary : props.theme.colors.secondary100};
@@ -41,4 +42,8 @@ export const IconView = styled.View<Props>`
   border-radius: 3px;
 `
 
-export const Title = styled.Text``
+export const Title = styled(Animated.Text)`
+  font-family: ${({theme}) => theme.fonts.title700};
+  color: ${({theme}) => theme.colors.heading};
+  font-size: 15px;
+`

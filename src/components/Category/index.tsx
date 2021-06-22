@@ -1,4 +1,5 @@
 import React from 'react'
+import { Animated } from 'react-native'
 import { RectButtonProps } from 'react-native-gesture-handler'
 import { useTheme } from 'styled-components/native'
 import { SvgProps } from 'react-native-svg'
@@ -15,12 +16,16 @@ type Props = RectButtonProps & {
   title: string
   icon: React.FC<SvgProps>
   checked?: boolean
+  titleAnimated: Animated.AnimatedInterpolation
+  contentAnimated: Animated.AnimatedInterpolation
 }
 
 const Category = ({ 
   title, 
   icon: Icon, 
-  checked = false, 
+  checked = false,
+  titleAnimated,
+  contentAnimated,
   ...props}: Props): JSX.Element => {
   const { colors } = useTheme()
 
@@ -29,11 +34,11 @@ const Category = ({
       <Gradient
         colors={[colors.secondary50, colors.secondary70]}
       >
-        <Content check={checked}>
+        <Content check={checked} style={{ height: contentAnimated }} >
           
           <IconView check={checked} />
           <Icon width={48} height={48} />
-          <Title>{title}</Title>
+          <Title style={{ opacity: titleAnimated }}>{title}</Title>
 
         </Content>
       </Gradient>

@@ -4,13 +4,20 @@ import { Wrapper } from './styles'
 
 import { categories } from '../../utils/categories'
 import Category from '../Category'
+import { Animated } from 'react-native'
 
 type Props = {
   categorySelected: string
+  titleAnimated: Animated.AnimatedInterpolation
+  contentAnimated: Animated.AnimatedInterpolation
   setCategory: (categoryId: string) => void
 }
 
-const CategorySelect = ({ categorySelected, setCategory }: Props): JSX.Element => {
+const CategorySelect = ({ 
+  categorySelected, 
+  titleAnimated, 
+  contentAnimated,
+  setCategory }: Props): JSX.Element => {
   return(
     <Wrapper
       horizontal
@@ -19,6 +26,8 @@ const CategorySelect = ({ categorySelected, setCategory }: Props): JSX.Element =
     >
       {categories.map(category => (
         <Category
+          contentAnimated={contentAnimated}
+          titleAnimated={titleAnimated}
           key={category.id}
           title={category.title}
           icon={category.icon}

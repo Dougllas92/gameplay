@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 import { 
   Wrapper,
-} from './styles';
+} from './styles'
 
 
 const GuildIcon: React.FC = () => {
-  const uri = 'https://github.com/Dougllas92.png'
+  const uri = 'https://images.alphacoders.com/239/239563.jpg'
   
   return(
     <Wrapper
@@ -16,4 +16,4 @@ const GuildIcon: React.FC = () => {
   )
 }
 
-export default GuildIcon;
+export default GuildIcon

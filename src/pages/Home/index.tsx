@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, Animated } from 'react-native'
 import { 
   Wrapper,
   Header,
@@ -16,6 +16,7 @@ import SizedBox from '../../components/SizedBox'
 
 const Home: React.FC = () => {
   const [category, setCategory] = useState('')
+  const [scrollY, setScrollY] = useState(new Animated.Value(0))
 
   const appointments = [
     {
@@ -41,6 +42,102 @@ const Home: React.FC = () => {
       category: '1',
       date: '22/06 às 20:40h',
       description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '3',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '4',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '5',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '6',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '7',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '8',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '9',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
+    },
+    {
+      id: '10',
+      guild: {
+        id: '1',
+        name: 'Lendários',
+        icon: null,
+        owner: true
+      },
+      category: '1',
+      date: '22/06 às 20:40h',
+      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
     }
   ]
 
@@ -50,12 +147,23 @@ const Home: React.FC = () => {
 
   return(
     <Wrapper>
-      <Header>
+      <Header
+        style={{ marginBottom: scrollY.interpolate({
+          inputRange: [0, 60],
+          outputRange: [42, 0],
+          extrapolate: 'clamp'
+        })}}
+      >
         <Profile />
         <ButtonAdd />
       </Header>
     
-      <CategorySelect categorySelected={category} setCategory={handleCategorySelect} />
+      <CategorySelect 
+        categorySelected={category} 
+        setCategory={handleCategorySelect} 
+        titleAnimated={scrollY.interpolate({ inputRange: [1,50], outputRange: [1,0], extrapolate: 'clamp'})}  
+        contentAnimated={scrollY.interpolate({ inputRange: [0,50], outputRange: [116,95], extrapolate: 'clamp'})}
+      />
       <SizedBox height={24} />
 
       <Content>
@@ -64,18 +172,24 @@ const Home: React.FC = () => {
           subtitle='Total 6'
         />
         <SizedBox height={24} />
-
-        <FlatList 
-          data={appointments}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          style={{ paddingHorizontal: 24}}
-          renderItem={({ item }) => (
-            <Appointment data={item} />
-          )}
-          ItemSeparatorComponent={() => <ListDivider />}
-        />
       </Content>
+      
+      <FlatList
+        scrollEventThrottle={16} 
+        onScroll={Animated.event([{
+          nativeEvent: {
+            contentOffset: { y: scrollY}
+          }
+        }],{ useNativeDriver: false })}
+        data={appointments}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        style={{ paddingHorizontal: 24}}
+        renderItem={({ item }) => (
+          <Appointment data={item} />
+        )}
+        ItemSeparatorComponent={() => <ListDivider />}
+      />
 
     </Wrapper>
   )
