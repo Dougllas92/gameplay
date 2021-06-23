@@ -16,14 +16,16 @@ type Props = RectButtonProps & {
   title: string
   icon: React.FC<SvgProps>
   checked?: boolean
-  titleAnimated: Animated.AnimatedInterpolation
-  contentAnimated: Animated.AnimatedInterpolation
+  hasCheckBox?: boolean
+  titleAnimated?: Animated.AnimatedInterpolation
+  contentAnimated?: Animated.AnimatedInterpolation
 }
 
 const Category = ({ 
   title, 
   icon: Icon, 
   checked = false,
+  hasCheckBox = false,
   titleAnimated,
   contentAnimated,
   ...props}: Props): JSX.Element => {
@@ -35,11 +37,10 @@ const Category = ({
         colors={[colors.secondary50, colors.secondary70]}
       >
         <Content check={checked} style={{ height: contentAnimated }} >
-          
-          <IconView check={checked} />
-          <Icon width={48} height={48} />
-          <Title style={{ opacity: titleAnimated }}>{title}</Title>
-
+          { hasCheckBox && <IconView check={checked} /> }
+            
+            <Icon width={48} height={48} />
+            <Title style={{ opacity: titleAnimated }}>{title}</Title>
         </Content>
       </Gradient>
 

@@ -1,10 +1,10 @@
-import React from 'react';
-import { useTheme } from 'styled-components';
+import React from 'react'
+import { useTheme } from 'styled-components'
 
 import { 
   Wrapper,
   AvatarImg 
-} from './styles';
+} from './styles'
 
 type Props = {
   urlImage: string
@@ -22,4 +22,4 @@ const Avatar = ({ urlImage }: Props): JSX.Element => {
   )
 }
 
-export default Avatar;
+export default Avatar

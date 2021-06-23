@@ -8,15 +8,17 @@ import { Animated } from 'react-native'
 
 type Props = {
   categorySelected: string
-  titleAnimated: Animated.AnimatedInterpolation
-  contentAnimated: Animated.AnimatedInterpolation
+  titleAnimated?: Animated.AnimatedInterpolation
+  contentAnimated?: Animated.AnimatedInterpolation
   setCategory: (categoryId: string) => void
+  hasCheckBox?: boolean
 }
 
 const CategorySelect = ({ 
   categorySelected, 
   titleAnimated, 
   contentAnimated,
+  hasCheckBox = false,
   setCategory }: Props): JSX.Element => {
   return(
     <Wrapper
@@ -33,6 +35,7 @@ const CategorySelect = ({
           icon={category.icon}
           checked={category.id === categorySelected}
           onPress={() => setCategory(category.id)}
+          hasCheckBox={hasCheckBox}
         />
         )) 
       }

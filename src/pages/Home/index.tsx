@@ -13,10 +13,14 @@ import ListHeader from '../../components/ListHeader'
 import Appointment from '../../components/Appointment'
 import ListDivider from '../../components/ListDivider'
 import SizedBox from '../../components/SizedBox'
+import Background from '../../components/Background'
+import { useNavigation } from '@react-navigation/native'
 
 const Home: React.FC = () => {
+  const navigation = useNavigation()
   const [category, setCategory] = useState('')
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
+  
 
   const appointments = [
     {
@@ -145,8 +149,12 @@ const Home: React.FC = () => {
     categoryId === category ? setCategory('') : setCategory(categoryId) 
   }
 
+  function navigateToAppointmentDetails() {
+    navigation.navigate('AppointmentDetails')
+  }
+
   return(
-    <Wrapper>
+    <Background>
       <Header
         style={{ marginBottom: scrollY.interpolate({
           inputRange: [0, 60],
@@ -155,7 +163,7 @@ const Home: React.FC = () => {
         })}}
       >
         <Profile />
-        <ButtonAdd />
+        <ButtonAdd onPress={() => navigation.navigate('AppointmentCreate')}/>
       </Header>
     
       <CategorySelect 
@@ -186,12 +194,15 @@ const Home: React.FC = () => {
         showsVerticalScrollIndicator={false}
         style={{ paddingHorizontal: 24}}
         renderItem={({ item }) => (
-          <Appointment data={item} />
+          <Appointment 
+            data={item} 
+            onPress={navigateToAppointmentDetails}
+          />
         )}
         ItemSeparatorComponent={() => <ListDivider />}
       />
 
-    </Wrapper>
+    </Background>
   )
 }
 

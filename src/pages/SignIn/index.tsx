@@ -11,6 +11,7 @@ import {
 import IllustrationImg from '../../assets/illustration.png'
 
 import { ButtonIcon } from '../../components/Button'
+import Background from '../../components/Background'
 import { useNavigation } from '@react-navigation/native'
 
 const SignIn: React.FC = () => {
@@ -21,28 +22,30 @@ const SignIn: React.FC = () => {
   }
   
   return(
-    <Wrapper>
-      <Image
-        source={IllustrationImg}
-        resizeMode='stretch'
-      />
-      <Content>
-        <Title>
-          Conecte-se {'\n'}e organize suas{'\n'} jogatinas
-        </Title>
-
-        <Subtitle>
-          Crie grupos para jogar seus games{'\n'} 
-          favoritos com seus amigos
-        </Subtitle>
-
-        <ButtonIcon 
-          title='Entrar com Discord'
-          activeOpacity={0.7}
-          onPress={navigateToHome}
+    <Background>
+      <Wrapper>
+        <Image
+          source={IllustrationImg}
+          resizeMode='stretch'
         />
-      </Content>
-    </Wrapper>
+        <Content>
+          <Title>
+            Conecte-se {'\n'}e organize suas{'\n'} jogatinas
+          </Title>
+
+          <Subtitle>
+            Crie grupos para jogar seus games{'\n'} 
+            favoritos com seus amigos
+          </Subtitle>
+
+          <ButtonIcon 
+            title='Entrar com Discord'
+            activeOpacity={0.7}
+            onPress={navigateToHome}
+          />
+        </Content>
+      </Wrapper>
+    </Background>
   )
 }
 

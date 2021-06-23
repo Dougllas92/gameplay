@@ -27,16 +27,17 @@ export const Content = styled(Animated.View)<Props>`
   background-color: ${({theme}) => theme.colors.secondary40};
   justify-content: space-between;
   align-items: center;
-  padding: 7px 0px;
+  padding: 20px 0px;
   border-radius: 8px;
 `
 
 export const IconView = styled(Animated.View)<Props>`
+  position: absolute;
+  top: 7px;
+  right: 7px;
   width: 8px;
   height: 8px;
   background-color: ${(props) => props.check ? props.theme.colors.primary : props.theme.colors.secondary100};
-  align-self: flex-end;
-  margin-right: 7px;
   border-color: ${(props) => props.check ? props.theme.colors.primary : props.theme.colors.secondary50};
   border-width: 1px;
   border-radius: 3px;
