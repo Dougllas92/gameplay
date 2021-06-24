@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { RectButton } from 'react-native-gesture-handler'
+import { useTheme } from 'styled-components/native'
+import { Platform, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
 import { 
@@ -14,26 +16,26 @@ import {
   Column,
   Divider,
   Footer
-   } from './styles'
+} from './styles'
+
+
+
+import Guilds from '../Guilds'
 
 import CategorySelect from '../../components/CategorySelect'
 import Header from '../../components/Header'
-
-import { useTheme } from 'styled-components/native'
 import SizedBox from '../../components/SizedBox'
 import GuildIcon from '../../components/GuildIcon'
 import SmallInput from '../../components/SmallInput'
-import { Platform, View } from 'react-native'
 import TextArea from '../../components/TextArea'
 import ListHeader from '../../components/ListHeader'
-import { ButtonIcon } from '../../components/Button'
 import ModalView from '../../components/ModalView'
-import Guilds from '../Guilds'
+import ButtonIcon from '../../components/ButtonIcon'
 import { GuildProps } from '../../components/Guild'
 
 const AppointmentCreate: React.FC = () => {
   const { colors } = useTheme()
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState('1')
   const [modalVisible, setModalVisible] = useState(false)
   const [guild, setGuild] = useState<GuildProps>({} as GuildProps)
 
@@ -41,9 +43,17 @@ const AppointmentCreate: React.FC = () => {
     setModalVisible(true)
   }
 
+  function handleCloseGuilds() {
+    setModalVisible(false)
+  }
+
   function handleGuildSelect(guildSelect: GuildProps) {
     setGuild(guildSelect)
     setModalVisible(false)
+  }
+
+  function handleCategorySelect(categoryId:string) {
+    setCategory(categoryId) 
   }
 
   return(
@@ -59,7 +69,7 @@ const AppointmentCreate: React.FC = () => {
         <SizedBox height={12} />
         <CategorySelect 
           hasCheckBox
-          setCategory={setCategory}
+          setCategory={handleCategorySelect}
           categorySelected={category}
         />
 
@@ -83,6 +93,7 @@ const AppointmentCreate: React.FC = () => {
           <Field>
             <View>
               <Title>Dia e mês</Title>
+              <SizedBox height={12} />
               <Column>
                 <SmallInput maxLength={2} />
                 <Divider>/</Divider>
@@ -92,6 +103,7 @@ const AppointmentCreate: React.FC = () => {
 
             <View>
               <Title>Horário</Title>
+              <SizedBox height={12} />
               <Column>
                 <SmallInput maxLength={2} />
                 <Divider>:</Divider>
@@ -111,6 +123,7 @@ const AppointmentCreate: React.FC = () => {
             maxLength={100}
             numberOfLines={5}
             autoCorrect={false}
+            style={{ textAlignVertical: 'top' }}
           />
         </View>
 
@@ -118,7 +131,7 @@ const AppointmentCreate: React.FC = () => {
           <ButtonIcon title='Agendar' iconActive={false} />
         </Footer>
       </Container>
-      <ModalView visible={modalVisible}>
+      <ModalView visible={modalVisible} closedModal={handleCloseGuilds}>
         <Guilds handleGuildSelect={handleGuildSelect}/>
       </ModalView>
     </Wrapper>

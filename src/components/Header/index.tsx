@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
-import { useTheme } from 'styled-components/native'
 import { BorderlessButton } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/native'
+import { useTheme } from 'styled-components/native'
 import { Feather } from '@expo/vector-icons'
 
 import { 
@@ -8,7 +9,6 @@ import {
   Title,
   Content
  } from './styles'
-import { useNavigation } from '@react-navigation/native'
 
 type Props = {
   title: string

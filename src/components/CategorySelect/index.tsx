@@ -1,10 +1,10 @@
 import React from 'react'
+import { Animated } from 'react-native'
 
 import { Wrapper } from './styles'
 
 import { categories } from '../../utils/categories'
 import Category from '../Category'
-import { Animated } from 'react-native'
 
 type Props = {
   categorySelected: string

@@ -10,4 +10,6 @@ export const TextInput = styled.TextInput`
   font-size: 13px;
   margin-right: 4px;
   text-align: center;
+  border-width: 1px;
+  border-color: ${({theme}) => theme.colors.secondary50};
 `

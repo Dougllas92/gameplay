@@ -1,5 +1,6 @@
 import React from 'react'
 import { RectButtonProps } from 'react-native-gesture-handler'
+import { useTheme } from 'styled-components/native'
 
 import { 
   Wrapper, 
@@ -34,12 +35,11 @@ type Props = RectButtonProps & {
   data: Appointmentprops
 }
 
-import PlayerSvg from '../../assets/player.svg'
 import CalendarSvg from '../../assets/calendar.svg'
+import PlayerSvg from '../../assets/player.svg'
 
-import GuildIcon from '../GuildIcon'
 import { categories } from '../../utils/categories'
-import { useTheme } from 'styled-components/native'
+import GuildIcon from '../GuildIcon'
 
 const Appointment = ({ data, ...props}: Props): JSX.Element => {
   const { colors } = useTheme()

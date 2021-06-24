@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import { 
   Wrapper,
@@ -7,11 +7,10 @@ import {
   Status,
   BulletStatus,
   NameStatus
-   } from './styles';
+   } from './styles'
 
-import Avatar from '../Avatar';
-import SizedBox from '../SizedBox';
-import { ButtonIcon } from '../Button';
+import Avatar from '../Avatar'
+import SizedBox from '../SizedBox'
 
 export type MemberProps = {
   id: string

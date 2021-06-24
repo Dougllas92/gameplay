@@ -1,8 +1,8 @@
 import React from 'react'
-import { Animated } from 'react-native'
 import { RectButtonProps } from 'react-native-gesture-handler'
 import { useTheme } from 'styled-components/native'
 import { SvgProps } from 'react-native-svg'
+import { Animated } from 'react-native'
 
 import { 
   Wrapper,

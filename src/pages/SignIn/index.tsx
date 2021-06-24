@@ -1,4 +1,6 @@
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { ActivityIndicator } from 'react-native'
 
 import { 
   Wrapper,
@@ -8,17 +10,25 @@ import {
   Subtitle
 } from './styles'
 
+//images
 import IllustrationImg from '../../assets/illustration.png'
 
-import { ButtonIcon } from '../../components/Button'
+//components
+import ButtonIcon from '../../components/ButtonIcon'
 import Background from '../../components/Background'
-import { useNavigation } from '@react-navigation/native'
+import { useTheme } from 'styled-components/native'
+import { useAuth } from '../../hooks/auth'
 
 const SignIn: React.FC = () => {
-  const navigation = useNavigation()
+  const { loading, SignIn } = useAuth()
+  const { colors } = useTheme()
 
-  function navigateToHome() {
-    navigation.navigate('Home')
+  async function navigateToHome() {
+    try {
+      await SignIn()
+    } catch(err) {
+      console.log(err)      
+    }
   }
   
   return(
@@ -38,11 +48,14 @@ const SignIn: React.FC = () => {
             favoritos com seus amigos
           </Subtitle>
 
-          <ButtonIcon 
-            title='Entrar com Discord'
-            activeOpacity={0.7}
-            onPress={navigateToHome}
-          />
+          {loading ? <ActivityIndicator color={colors.heading} />
+            :
+            <ButtonIcon 
+              title='Entrar com Discord'
+              activeOpacity={0.7}
+              onPress={navigateToHome}
+            />
+          }
         </Content>
       </Wrapper>
     </Background>

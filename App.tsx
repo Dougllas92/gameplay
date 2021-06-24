@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
+import { LogBox } from 'react-native'
 
 import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter'
 import { Rajdhani_500Medium, Rajdhani_700Bold } from '@expo-google-fonts/rajdhani'
@@ -12,6 +13,9 @@ import theme from './src/global/styles/theme'
 
 import Routes from './src/routes'
 import Background from './src/components/Background'
+import { AuthProvider } from './src/hooks/auth'
+
+LogBox.ignoreLogs(['You are not currently signed in to Expo on your development machine.'])
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,7 +33,9 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style='light' />
       <Background>
-        <Routes /> 
+        <AuthProvider>
+          <Routes /> 
+        </AuthProvider>
       </Background>
     </ThemeProvider>
   )

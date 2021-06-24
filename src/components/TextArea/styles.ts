@@ -8,6 +8,9 @@ export const TextInput = styled.TextInput`
   border-radius: 8px;
   font-family: ${({theme}) => theme.fonts.text400};
   font-size: 13px;
-  margin-right: 4px;
-  text-align: center;
+  margin-right: 24px;
+  padding: 16px;
+  padding-top: 16px;
+  border-width: 1px;
+  border-color: ${({theme}) => theme.colors.secondary50};
 `

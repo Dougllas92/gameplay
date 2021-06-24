@@ -1,7 +1,8 @@
 import React, { useState} from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { FlatList, Animated } from 'react-native'
+
 import { 
-  Wrapper,
   Header,
   Content
 } from './styles'
@@ -14,7 +15,6 @@ import Appointment from '../../components/Appointment'
 import ListDivider from '../../components/ListDivider'
 import SizedBox from '../../components/SizedBox'
 import Background from '../../components/Background'
-import { useNavigation } from '@react-navigation/native'
 
 const Home: React.FC = () => {
   const navigation = useNavigation()
@@ -193,6 +193,7 @@ const Home: React.FC = () => {
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         style={{ paddingHorizontal: 24}}
+        contentContainerStyle={{ paddingBottom: 69 }}
         renderItem={({ item }) => (
           <Appointment 
             data={item} 

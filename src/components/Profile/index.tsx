@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import { 
   Wrapper,
@@ -6,19 +6,22 @@ import {
   User,
   Greeting,
   Username,
-  Message } from './styles';
-
-import Avatar from '../Avatar';
+  Message 
+} from './styles'
+import Avatar from '../Avatar'
+import { useAuth } from '../../hooks/auth'
 
 const Profile: React.FC = () => {
+  const { user } = useAuth()
+
   return(
     <Wrapper>
       
-      <Avatar urlImage='https://github.com/Dougllas92.png' />
+      <Avatar urlImage={user.avatar} />
       <Content>
         <User>
           <Greeting>Olá, </Greeting>
-          <Username>Douglas</Username>
+          <Username>{user.firstName}</Username>
         </User>
 
         <Message>Hojé é dia de vitória</Message>
@@ -29,4 +32,4 @@ const Profile: React.FC = () => {
   )
 }
 
-export default Profile;
+export default Profile

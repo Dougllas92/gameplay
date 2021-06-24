@@ -1,9 +1,9 @@
 import React from 'react'
 import { RectButtonProps } from 'react-native-gesture-handler'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useTheme } from 'styled-components/native'
 
 import { Wrapper, } from './styles'
-import { useTheme } from 'styled-components/native'
 
 const ButtonAdd = ({...props}: RectButtonProps): JSX.Element => {
   const { colors } = useTheme()

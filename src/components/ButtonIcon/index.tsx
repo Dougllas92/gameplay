@@ -15,7 +15,7 @@ interface Props extends RectButtonProps {
   iconActive?: boolean
 }
 
-export function ButtonIcon({ title, iconActive=true, ...props }: Props) {
+const ButtonIcon = ({ title, iconActive=true, ...props }: Props): JSX.Element => {
   return(
     <Wrapper {...props}>
       { iconActive && 
@@ -27,3 +27,7 @@ export function ButtonIcon({ title, iconActive=true, ...props }: Props) {
     </Wrapper>
   )
 }
+
+export default ButtonIcon
+
+

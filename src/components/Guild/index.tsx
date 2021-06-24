@@ -1,16 +1,17 @@
 import React from 'react'
-import { View } from 'react-native';
-import { TouchableOpacityProps } from 'react-native';
-import GuildIcon from '../GuildIcon';
-import { Feather } from '@expo/vector-icons';
+import { TouchableOpacityProps } from 'react-native'
+import { useTheme } from 'styled-components/native'
+import { Feather } from '@expo/vector-icons'
+import { View } from 'react-native'
 
-import { useTheme } from 'styled-components/native';
+import GuildIcon from '../GuildIcon'
+
 import { 
   Wrapper,
   Content,
   Title,
   Type
-} from './styles';
+} from './styles'
 
 export type GuildProps = {
   id: string
@@ -49,4 +50,4 @@ const Guild = ({ data, ...props}: Props): JSX.Element => {
   )
 }
 
-export default Guild;
+export default Guild

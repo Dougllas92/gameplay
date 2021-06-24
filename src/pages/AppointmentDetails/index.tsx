@@ -1,25 +1,25 @@
 import React from 'react'
 import { FlatList } from 'react-native'
+import { BorderlessButton } from 'react-native-gesture-handler'
+import { Fontisto } from '@expo/vector-icons'
+import { useTheme } from 'styled-components/native'
 
 import { 
   Banner,
   BannerContent,
   Title,
   Subtitle,
-  Footer } from './styles'
-
+  Footer 
+} from './styles'
+  
 import BannerImg from '../../assets/banner.png'
-
 import Background from '../../components/Background'
 import Header from '../../components/Header'
-import { BorderlessButton } from 'react-native-gesture-handler'
-import { Fontisto } from '@expo/vector-icons'
-import { useTheme } from 'styled-components/native'
 import ListHeader from '../../components/ListHeader'
 import SizedBox from '../../components/SizedBox'
 import Member from '../../components/Member'
 import ListDivider from '../../components/ListDivider'
-import { ButtonIcon } from '../../components/Button'
+import ButtonIcon from '../../components/ButtonIcon'  
 
 const AppointmentDetails: React.FC = () => {
   const { colors } = useTheme()

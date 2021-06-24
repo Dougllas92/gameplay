@@ -1,36 +1,42 @@
 import React, { ReactNode} from 'react'
 import { ModalProps } from 'react-native'
 import Guilds from '../../pages/Guilds'
-import Background from '../Background'
 
 import { 
   Wrapper,
   Overlay,
   Content,
-  Bar
+  Bar,
+  Close
 } from './styles'
+
+import Background from '../Background'
 
 type Props = ModalProps & {
   children: ReactNode
+  closedModal: () => void
 }
 
 
-const ModalView = ({ children, ...props}: Props) => {
+const ModalView = ({ children, closedModal, ...props}: Props) => {
   return(
     //@ts-ignore
     <Wrapper
       transparent
       animationType='slide'
+      statusBarTranslucent
       {...props}
     >
-      <Overlay>
-        <Content>
-          <Background>
-            <Bar />
-            {children}
-          </Background>
-        </Content>
-      </Overlay>
+      <Close onPress={closedModal}>
+        <Overlay>
+          <Content>
+            <Background>
+              <Bar />
+              {children}
+            </Background>
+          </Content>
+        </Overlay>
+      </Close>
 
     </Wrapper>
   )
