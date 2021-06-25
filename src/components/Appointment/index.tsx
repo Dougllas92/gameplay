@@ -49,7 +49,7 @@ const Appointment = ({ data, ...props}: Props): JSX.Element => {
   return(
     <Wrapper {...props}>
       <Container>
-      <GuildIcon />
+      <GuildIcon guildId={data.guild.id} iconId={data.guild.icon} />
         <Content>
           <Header>
             <Title>{data.guild.name }</Title>

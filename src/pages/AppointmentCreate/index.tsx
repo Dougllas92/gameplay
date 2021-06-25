@@ -3,6 +3,7 @@ import { RectButton } from 'react-native-gesture-handler'
 import { useTheme } from 'styled-components/native'
 import { Platform, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import uuid from 'react-native-uuid'
 
 import { 
   Wrapper,
@@ -32,12 +33,23 @@ import ListHeader from '../../components/ListHeader'
 import ModalView from '../../components/ModalView'
 import ButtonIcon from '../../components/ButtonIcon'
 import { GuildProps } from '../../components/Guild'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { COLLECTION_APPOINTMENTS } from '../../configs/storage'
+import { useNavigation } from '@react-navigation/core'
 
 const AppointmentCreate: React.FC = () => {
   const { colors } = useTheme()
+  const navigation = useNavigation()
   const [category, setCategory] = useState('1')
   const [modalVisible, setModalVisible] = useState(false)
   const [guild, setGuild] = useState<GuildProps>({} as GuildProps)
+
+
+  const [day, setDay] = useState('')
+  const [month, setMonth] = useState('')
+  const [hour, setHour] = useState('')
+  const [minute, setMinute] = useState('')
+  const [description, setDescription] = useState('')
 
   function handleOpenGuilds() {
     setModalVisible(true)
@@ -54,6 +66,25 @@ const AppointmentCreate: React.FC = () => {
 
   function handleCategorySelect(categoryId:string) {
     setCategory(categoryId) 
+  }
+
+  async function handleSave() {
+    const newAppointment = {
+      id: uuid.v4(),
+      guild,
+      category,
+      date: `${day}/${month} às ${hour}:${minute}h`,
+      description
+    }
+
+    const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS)
+    const appointments = storage ? JSON.parse(storage) : []
+
+    await AsyncStorage.setItem(COLLECTION_APPOINTMENTS,
+      JSON.stringify([...appointments, newAppointment])
+    )
+
+    navigation.navigate('Home')
   }
 
   return(
@@ -77,7 +108,7 @@ const AppointmentCreate: React.FC = () => {
         <Form>
           <RectButton onPress={handleOpenGuilds}>
             <Select>
-              {guild.icon ? <GuildIcon /> : <ImageBlank />}
+              {guild.icon ? <GuildIcon guildId={guild.id} iconId={guild.icon} /> : <ImageBlank />}
 
               <SelectBody>
                 <Title>
@@ -95,19 +126,19 @@ const AppointmentCreate: React.FC = () => {
               <Title>Dia e mês</Title>
               <SizedBox height={12} />
               <Column>
-                <SmallInput maxLength={2} />
+                <SmallInput maxLength={2} onChangeText={setDay} />
                 <Divider>/</Divider>
-                <SmallInput maxLength={2} />
+                <SmallInput maxLength={2} onChangeText={setMonth}/>
               </Column>
             </View>
 
             <View>
               <Title>Horário</Title>
-              <SizedBox height={12} />
+              <SizedBox height={12}  />
               <Column>
-                <SmallInput maxLength={2} />
+                <SmallInput maxLength={2} onChangeText={setHour} />
                 <Divider>:</Divider>
-                <SmallInput maxLength={2} />
+                <SmallInput maxLength={2} onChangeText={setMinute} />
               </Column>
             </View>
           </Field>
@@ -124,11 +155,12 @@ const AppointmentCreate: React.FC = () => {
             numberOfLines={5}
             autoCorrect={false}
             style={{ textAlignVertical: 'top' }}
+            onChangeText={setDescription}
           />
         </View>
 
         <Footer>
-          <ButtonIcon title='Agendar' iconActive={false} />
+          <ButtonIcon title='Agendar' iconActive={false} onPress={handleSave}/>
         </Footer>
       </Container>
       <ModalView visible={modalVisible} closedModal={handleCloseGuilds}>

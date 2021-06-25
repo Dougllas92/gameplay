@@ -1,5 +1,5 @@
-import React, { useState} from 'react'
-import { useNavigation } from '@react-navigation/native'
+import React, { useState, useCallback } from 'react'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { FlatList, Animated } from 'react-native'
 
 import { 
@@ -11,147 +11,47 @@ import CategorySelect from '../../components/CategorySelect'
 import ButtonAdd from '../../components/ButtonAdd'
 import Profile from '../../components/Profile'
 import ListHeader from '../../components/ListHeader'
-import Appointment from '../../components/Appointment'
+import Appointment, { Appointmentprops } from '../../components/Appointment'
 import ListDivider from '../../components/ListDivider'
 import SizedBox from '../../components/SizedBox'
 import Background from '../../components/Background'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { COLLECTION_APPOINTMENTS } from '../../configs/storage'
+import Loading from '../../components/Loading'
 
 const Home: React.FC = () => {
   const navigation = useNavigation()
   const [category, setCategory] = useState('')
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
-  
+  const [appointments, setAppointments] = useState<Appointmentprops[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const appointments = [
-    {
-      id: '1',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '2',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '3',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '4',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '5',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '6',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '7',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '8',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '9',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    },
-    {
-      id: '10',
-      guild: {
-        id: '1',
-        name: 'Lendários',
-        icon: null,
-        owner: true
-      },
-      category: '1',
-      date: '22/06 às 20:40h',
-      description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-    }
-  ]
+  
 
   function handleCategorySelect(categoryId:string) {
     categoryId === category ? setCategory('') : setCategory(categoryId) 
   }
 
-  function navigateToAppointmentDetails() {
-    navigation.navigate('AppointmentDetails')
+  function navigateToAppointmentDetails(guildSelected: Appointmentprops) {
+    navigation.navigate('AppointmentDetails', { guildSelected })
   }
+
+  async function loadAppointments() {
+    const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS)
+    const storage: Appointmentprops[] = response ? JSON.parse(response) : []
+
+    if(category) {
+      setAppointments(storage.filter(item => item.category === category))
+    } else {
+      setAppointments(storage)
+    }
+
+    setLoading(false)
+  }
+
+  useFocusEffect(useCallback(() =>{
+    loadAppointments()
+  },[category]))
 
   return(
     <Background>
@@ -174,34 +74,38 @@ const Home: React.FC = () => {
       />
       <SizedBox height={24} />
 
-      <Content>
-        <ListHeader
-          title='Partifas agendadas'
-          subtitle='Total 6'
-        />
-        <SizedBox height={24} />
-      </Content>
-      
-      <FlatList
-        scrollEventThrottle={16} 
-        onScroll={Animated.event([{
-          nativeEvent: {
-            contentOffset: { y: scrollY}
-          }
-        }],{ useNativeDriver: false })}
-        data={appointments}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        style={{ paddingHorizontal: 24}}
-        contentContainerStyle={{ paddingBottom: 69 }}
-        renderItem={({ item }) => (
-          <Appointment 
-            data={item} 
-            onPress={navigateToAppointmentDetails}
+      {loading ? <Loading /> :
+        <>
+          <Content>
+            <ListHeader
+              title='Partifas agendadas'
+              subtitle={`Total ${appointments.length}`}
+            />
+            <SizedBox height={24} />
+          </Content>
+          
+          <FlatList
+            scrollEventThrottle={16} 
+            onScroll={Animated.event([{
+              nativeEvent: {
+                contentOffset: { y: scrollY}
+              }
+            }],{ useNativeDriver: false })}
+            data={appointments}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            style={{ paddingHorizontal: 24}}
+            contentContainerStyle={{ paddingBottom: 69 }}
+            renderItem={({ item }) => (
+              <Appointment 
+                data={item} 
+                onPress={() => navigateToAppointmentDetails(item)}
+              />
+            )}
+            ItemSeparatorComponent={() => <ListDivider />}
           />
-        )}
-        ItemSeparatorComponent={() => <ListDivider />}
-      />
+        </>
+      }
 
     </Background>
   )

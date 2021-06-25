@@ -35,7 +35,7 @@ const Guild = ({ data, ...props}: Props): JSX.Element => {
       {...props}
     >
 
-    <GuildIcon />
+    <GuildIcon guildId={data.id} iconId={data.icon}/>
 
     <Content>
       <View>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
 
 import { Wrapper } from './styles'
@@ -6,6 +6,9 @@ import { Wrapper } from './styles'
 import Guild from '../../components/Guild'
 import ListDivider from '../../components/ListDivider'
 import { GuildProps } from '../../components/Guild'
+import { useState } from 'react'
+import { api } from '../../services/api'
+import Loading from '../../components/Loading'
 
 
 
@@ -14,24 +17,24 @@ type Props = {
 }
 
 const Guilds = ({ handleGuildSelect }: Props) => {
-  const guils = [
-    {
-      id: '1',
-      name: 'Lendários',
-      icon: null,
-      owner: true,
-    },
-    {
-      id: '2',
-      name: 'Free Fire',
-      icon: null,
-      owner: true,
-    },
-  ]
+  const [guilds, setGuilds] = useState<GuildProps[]>([])
+  const [loading, setLoading] = useState(true)
+
+  async function fetchGuilds() {
+    const response = await api.get('/users/@me/guilds')
+    setGuilds(response.data)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    fetchGuilds()
+  }, [])
+
   return(
     <Wrapper>
+      { loading ? <Loading /> :
       <FlatList
-        data={guils}
+        data={guilds}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <Guild data={item} onPress={() => handleGuildSelect(item)} />
@@ -42,6 +45,7 @@ const Guilds = ({ handleGuildSelect }: Props) => {
         showsVerticalScrollIndicator={false}
         style={{ width: '100%' }}
       />
+      }
     </Wrapper>
   )
 }

@@ -28,6 +28,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "androidStatusBar": {
+      "backgroundColor":"#070B24",
+      "barStyle":"light-content"
+    },
+    "androidNavigationBar":{
+      "backgroundColor":"#0A1033",
+      "barStyle":"light-content"
     }
   }
 }
