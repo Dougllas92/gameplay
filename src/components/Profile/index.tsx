@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 
 import { 
@@ -9,28 +9,24 @@ import {
   Username,
   Message 
 } from './styles'
-import Avatar from '../Avatar'
+
 import { useAuth } from '../../hooks/auth'
-import { Alert } from 'react-native'
-import SignIn from '../../pages/SignIn'
+
+import Logout from '../../pages/Logout'
+import ModalView from '../ModalView'
+import Avatar from '../Avatar'
 
 const Profile: React.FC = () => {
-  const { user, SignOut } = useAuth()
+  const { user } = useAuth()
+  const [modalLogoutVisible, setModalLogoutVisible] = useState(false)
 
   function handleSignOut() {
-    Alert.alert('Logout', 'Deseja sair do Gameplay?',
-    [
-      {
-        text: 'Não',
-        style: 'cancel'
-      },
-      {
-        text: 'Sim',
-        onPress: () => SignOut()
-      }
-    ])
+    setModalLogoutVisible(true)
   }
 
+  function handleLogout() {
+    setModalLogoutVisible(false)
+  }
 
   return(
     <Wrapper>
@@ -45,6 +41,10 @@ const Profile: React.FC = () => {
 
         <Message>Hojé é dia de vitória</Message>
       </Content>
+
+      <ModalView visible={modalLogoutVisible}>
+        <Logout handleCloseModal={handleLogout} />
+      </ModalView>
     </Wrapper>
   )
 }
