@@ -36,6 +36,12 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 * React Native
 * Npm ou Yarn
 
+## ☕ Testando o Gameplay
+Para testar o aplicativo Gameplay, leia o qrcode abaixo com o app Expo Go
+<h1>
+    <img alt="qrcode" src=".github/gameplay-qrcode.png" />
+</h1>
+
 ## 🚀 Instalando Gameplay
 
 Para instalar o Gameplay, siga estas etapas:
@@ -78,6 +84,3 @@ CDN_IMAGE=https://cdn.discordapp.com
 ```
 - Feito isso, pode deletar a url do arquivo e renomeie o arquivo .env.exempla para .env
 
-
-## ☕ Testando o Gameplay
-Para testar o aplicativo Gameplay, leia o qrcode abaixo com o app Expo Go

@@ -30,12 +30,14 @@
       "favicon": "./assets/favicon.png"
     },
     "androidStatusBar": {
-      "backgroundColor":"#070B24",
-      "barStyle":"light-content"
+      "backgroundColor": "#070B24",
+      "barStyle": "light-content"
     },
-    "androidNavigationBar":{
-      "backgroundColor":"#0A1033",
-      "barStyle":"light-content"
-    }
+    "androidNavigationBar": {
+      "backgroundColor": "#0A1033",
+      "barStyle": "light-content"
+    },
+    "description": "App desenvolvido na NLW Together da RocketSeat",
+    "githubUrl": "https://github.com/Dougllas92/gameplay"
   }
 }
