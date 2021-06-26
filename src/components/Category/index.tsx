@@ -21,14 +21,14 @@ type Props = RectButtonProps & {
   contentAnimated?: Animated.AnimatedInterpolation
 }
 
-const Category = ({ 
+const Category: React.FC<Props> = ({ 
   title, 
   icon: Icon, 
   checked = false,
   hasCheckBox = false,
   titleAnimated,
   contentAnimated,
-  ...props}: Props): JSX.Element => {
+  ...props}) => {
   const { colors } = useTheme()
 
   return(

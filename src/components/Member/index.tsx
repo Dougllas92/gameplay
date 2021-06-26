@@ -7,23 +7,18 @@ import {
   Status,
   BulletStatus,
   NameStatus
-   } from './styles'
+} from './styles'
 
-import Avatar from '../Avatar'
+import { MemberProps } from '../../configs/interfaces'
+
 import SizedBox from '../SizedBox'
-
-export type MemberProps = {
-  id: string
-  username: string
-  avatar_url: string
-  status: string
-}
+import Avatar from '../Avatar'
 
 type Props = {
   data: MemberProps
 }
 
-const Member = ({ data }: Props): JSX.Element => {
+const Member: React.FC<Props> = ({ data }) => {
   const isOnline = data.status === 'online'
 
   return(
@@ -42,4 +37,4 @@ const Member = ({ data }: Props): JSX.Element => {
   )
 }
 
-export default Member;
+export default Member

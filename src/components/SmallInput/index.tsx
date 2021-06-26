@@ -3,7 +3,7 @@ import { TextInputProps } from 'react-native'
 
 import { TextInput } from './styles'
 
-const SmallInput = ({...props}: TextInputProps): JSX.Element => {
+const SmallInput: React.FC<TextInputProps> = ({...props}) => {
   return(
     //@ts-ignore
     <TextInput 

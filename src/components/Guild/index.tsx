@@ -4,8 +4,6 @@ import { useTheme } from 'styled-components/native'
 import { Feather } from '@expo/vector-icons'
 import { View } from 'react-native'
 
-import GuildIcon from '../GuildIcon'
-
 import { 
   Wrapper,
   Content,
@@ -13,19 +11,14 @@ import {
   Type
 } from './styles'
 
-export type GuildProps = {
-  id: string
-  name: string
-  icon: string | null
-  owner: boolean
-}
+import { GuildProps } from '../../configs/interfaces'
+import GuildIcon from '../GuildIcon'
 
 type Props = TouchableOpacityProps & {
   data: GuildProps
 }
 
-
-const Guild = ({ data, ...props}: Props): JSX.Element => {
+const Guild: React.FC<Props> = ({ data, ...props}) => {
   const { colors } = useTheme()
 
   return(

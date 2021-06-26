@@ -28,11 +28,12 @@ export const Select = styled.View`
   overflow: hidden;
 `
 export const ImageBlank = styled.View`
-  width: 64px;
+  width: 66px;
   height: 68px;
   background-color: ${({theme}) => theme.colors.secondary50};
   border-width: 1px;
   border-radius: 8px;
+  left: -2px;
 `
 export const SelectBody = styled.View`
   flex: 1;

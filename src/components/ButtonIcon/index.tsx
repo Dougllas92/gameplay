@@ -15,7 +15,7 @@ interface Props extends RectButtonProps {
   iconActive?: boolean
 }
 
-const ButtonIcon = ({ title, iconActive=true, ...props }: Props): JSX.Element => {
+const ButtonIcon: React.FC<Props> = ({ title, iconActive=true, ...props }) => {
   return(
     <Wrapper {...props}>
       { iconActive && 

@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components/native'
 
 import { Wrapper, } from './styles'
 
-const ButtonAdd = ({...props}: RectButtonProps): JSX.Element => {
+const ButtonAdd: React.FC<RectButtonProps> = ({...props}) => {
   const { colors } = useTheme()
 
   return(

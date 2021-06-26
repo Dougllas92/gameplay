@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FlatList, Animated } from 'react-native'
 
 import { 
@@ -8,16 +9,18 @@ import {
 } from './styles'
 
 import CategorySelect from '../../components/CategorySelect'
-import ButtonAdd from '../../components/ButtonAdd'
-import Profile from '../../components/Profile'
-import ListHeader from '../../components/ListHeader'
-import Appointment, { Appointmentprops } from '../../components/Appointment'
+import Appointment from '../../components/Appointment'
 import ListDivider from '../../components/ListDivider'
-import SizedBox from '../../components/SizedBox'
 import Background from '../../components/Background'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { COLLECTION_APPOINTMENTS } from '../../configs/storage'
+import ListHeader from '../../components/ListHeader'
+import ButtonAdd from '../../components/ButtonAdd'
+import SizedBox from '../../components/SizedBox'
+import Profile from '../../components/Profile'
 import Loading from '../../components/Loading'
+
+import { COLLECTION_APPOINTMENTS } from '../../configs/storage'
+
+import { Appointmentprops } from '../../configs/interfaces'
 
 const Home: React.FC = () => {
   const navigation = useNavigation()

@@ -1,8 +1,8 @@
 import styled from "styled-components/native"
+import { getBottomSpace } from "react-native-iphone-x-helper"
 
 export const Wrapper = styled.View`
   width: 100%;
-  height: 170px;
   background-color: #749;
   position: absolute;
   bottom: 0;
@@ -25,7 +25,7 @@ export const Play = styled.Text`
 `
 export const Actions = styled.View`
   flex-direction: row;
-  padding: 0px 20px;
+  padding: 0px 20px 24px;
 `
 export const Action = styled.View`
   flex: 1;

@@ -16,34 +16,20 @@ import {
   Players
 } from './styles'
 
-export type GuildProps = {
-  id: string
-  name: string
-  icon: null
-  owner: boolean
-}
+import CalendarSvg from '../../assets/calendar.svg'
+import PlayerSvg from '../../assets/player.svg'
 
-export type Appointmentprops = {
-  id: string
-  guild: GuildProps
-  category: string
-  date: string
-  description: string
-}
+import { Appointmentprops } from '../../configs/interfaces'
+import { categories } from '../../utils/categories'
+import GuildIcon from '../GuildIcon'
 
 type Props = RectButtonProps & {
   data: Appointmentprops
 }
 
-import CalendarSvg from '../../assets/calendar.svg'
-import PlayerSvg from '../../assets/player.svg'
-
-import { categories } from '../../utils/categories'
-import GuildIcon from '../GuildIcon'
-
-const Appointment = ({ data, ...props}: Props): JSX.Element => {
-  const { colors } = useTheme()
+const Appointment: React.FC<Props> = ({ data, ...props}) => {
   const [category] = categories.filter(item => item.id === data.category)
+  const { colors } = useTheme()
   const { owner } = data.guild
 
   return(

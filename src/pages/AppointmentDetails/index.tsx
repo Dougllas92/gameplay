@@ -1,34 +1,33 @@
-import React, { useEffect } from 'react'
-import { FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, Alert, Platform, Share, View } from 'react-native'
+import { useRoute } from '@react-navigation/native'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { Fontisto } from '@expo/vector-icons'
 import { useTheme } from 'styled-components/native'
+import { Fontisto } from '@expo/vector-icons'
+import * as Linking from 'expo-linking'
 
-import { 
+import {
+  BannerView, 
   Banner,
   BannerContent,
   Title,
   Subtitle,
-  Footer 
+  Footer,
+  Aviso 
 } from './styles'
   
-import BannerImg from '../../assets/banner.png'
-import Background from '../../components/Background'
-import Header from '../../components/Header'
-import ListHeader from '../../components/ListHeader'
-import SizedBox from '../../components/SizedBox'
-import Member, { MemberProps } from '../../components/Member'
 import ListDivider from '../../components/ListDivider'
+import Background from '../../components/Background'
+import ListHeader from '../../components/ListHeader'
 import ButtonIcon from '../../components/ButtonIcon'  
-import { useRoute } from '@react-navigation/native'
-import { Appointmentprops } from '../../components/Appointment'
-import { useState } from 'react'
-import { Alert } from 'react-native'
-import { api } from '../../services/api'
+import SizedBox from '../../components/SizedBox'
+import BannerImg from '../../assets/banner.png'
 import Loading from '../../components/Loading'
-import { Platform } from 'react-native'
-import { Share } from 'react-native'
-import { Linking } from 'react-native'
+import Header from '../../components/Header'
+import Member from '../../components/Member'
+
+import { Appointmentprops, MemberProps } from '../../configs/interfaces'
+import { api } from '../../services/api'
 
 type Params = {
   guildSelected: Appointmentprops
@@ -39,12 +38,12 @@ type GuildWidget = {
   name: string
   instant_invite: string
   members: MemberProps[]
-  presence_count: number
 }
 
 const AppointmentDetails: React.FC = () => {
   const [widget, setWidget] = useState<GuildWidget>({} as GuildWidget)
   const [loading, setLoading] = useState(true)
+  const [status, setStatus] = useState('')
 
   const { colors } = useTheme()
   const routes = useRoute()
@@ -54,9 +53,13 @@ const AppointmentDetails: React.FC = () => {
     try {
       const response = await api.get(`/guilds/${guildSelected.guild.id}/widget.json`)
       setWidget(response.data)
-
-    } catch (err) {
-      Alert.alert('Verifique a conexão com o servidor')
+    } catch ({ response }) {
+      if(response.status === 403) {
+        setStatus(`Não foi possivel buscar dados. Widget do servidor desativado.`)
+      } else {
+        Alert.alert('Verifique a conexão com o servidor')
+      }
+      
     } finally {
       setLoading(false)
     }
@@ -74,7 +77,7 @@ const AppointmentDetails: React.FC = () => {
   }
 
   function handleOpenGuild() {
-    Linking.openURL(widget.instant_invite)
+    Linking.openURL(`https://discord.com/channels/${guildSelected.guild.id}`)
   }
 
   useEffect(() => {
@@ -92,38 +95,54 @@ const AppointmentDetails: React.FC = () => {
           </BorderlessButton>
         }
       />
-      <Banner source={BannerImg}>
-        <BannerContent>
-          <Title>{guildSelected.guild.name}</Title>
-          <Subtitle>{guildSelected.description}</Subtitle>
-        </BannerContent>
-      </Banner>
 
-      <SizedBox height={30} />
+      <BannerView>
+        <Banner source={BannerImg}>
+          <BannerContent>
+            <Title>{guildSelected.guild.name}</Title>
+            <Subtitle>{guildSelected.description}</Subtitle>
+          </BannerContent>
+        </Banner>
+      </BannerView>
+      
       {loading ? <Loading /> :
+        !!status 
+        ? 
+        <Aviso>
+          <Subtitle style={{ textAlign: 'center'}}>{status}</Subtitle>
+        </Aviso> :
+        
         <>
-          <ListHeader title='Jogadores' subtitle={`Total ${widget.members.length}`} />
-
-          <SizedBox height={24} />
-          <FlatList 
+          <FlatList
+            ListHeaderComponent={() => (
+              <>
+                <SizedBox height={30} />
+                <ListHeader 
+                  title='Jogadores' 
+                  subtitle='Total: 100' 
+                />
+                <SizedBox height={24} />
+              </>
+            )}
             data={widget.members}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
-              <Member data={item} />
+              <View style={{ marginLeft: 24 }}>
+                <Member data={item} />
+              </View>
             )}
             ItemSeparatorComponent={() => <ListDivider />}
-            style={{marginLeft: 24}}
+            showsVerticalScrollIndicator={false}
+            style={{ marginTop: 1}}
           />
         </>
       }
-
-      {guildSelected.guild.owner &&
-        <Footer>
-            <ButtonIcon title='Entrar na partida' onPress={handleOpenGuild} />
-        </Footer>
-      }
+      <Footer>
+        <ButtonIcon title='Entrar na partida' onPress={handleOpenGuild} />
+      </Footer>
+      
     </Background>
   )
 }
 
-export default AppointmentDetails;
+export default AppointmentDetails

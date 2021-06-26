@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { RectButton } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/core'
 import { useTheme } from 'styled-components/native'
 import { Platform, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
@@ -19,23 +21,25 @@ import {
   Footer
 } from './styles'
 
-
-
+//pages
 import Guilds from '../Guilds'
 
+//components
 import CategorySelect from '../../components/CategorySelect'
-import Header from '../../components/Header'
-import SizedBox from '../../components/SizedBox'
-import GuildIcon from '../../components/GuildIcon'
 import SmallInput from '../../components/SmallInput'
-import TextArea from '../../components/TextArea'
 import ListHeader from '../../components/ListHeader'
-import ModalView from '../../components/ModalView'
 import ButtonIcon from '../../components/ButtonIcon'
-import { GuildProps } from '../../components/Guild'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import ModalView from '../../components/ModalView'
+import GuildIcon from '../../components/GuildIcon'
+import SizedBox from '../../components/SizedBox'
+import TextArea from '../../components/TextArea'
+import Header from '../../components/Header'
+
+//types
+import { GuildProps } from '../../configs/interfaces'
+
+//storage
 import { COLLECTION_APPOINTMENTS } from '../../configs/storage'
-import { useNavigation } from '@react-navigation/core'
 
 const AppointmentCreate: React.FC = () => {
   const { colors } = useTheme()
@@ -163,8 +167,8 @@ const AppointmentCreate: React.FC = () => {
           <ButtonIcon title='Agendar' iconActive={false} onPress={handleSave}/>
         </Footer>
       </Container>
-      <ModalView visible={modalVisible} closedModal={handleCloseGuilds}>
-        <Guilds handleGuildSelect={handleGuildSelect}/>
+      <ModalView visible={modalVisible}>
+        <Guilds handleGuildSelect={handleGuildSelect} handleCloseModal={handleCloseGuilds}/>
       </ModalView>
     </Wrapper>
   )

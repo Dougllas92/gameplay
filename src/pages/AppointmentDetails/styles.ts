@@ -1,15 +1,22 @@
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import styled from "styled-components/native"
+import { Animated } from 'react-native';
+
+export const BannerView = styled(Animated.View)`
+  width: 100%;
+  height: 234px;
+`
 
 export const Banner = styled.ImageBackground`
   width: 100%;
   height: 234px;
 `
 export const BannerContent = styled.View`
-  flex: 1;
+  width: 100%;
+  height: 234px;
   justify-content: flex-end;
   padding: 0px 24px;
-  margin-bottom: 30px;
+  padding-bottom: 30px;
 `
 
 export const Title = styled.Text`
@@ -26,4 +33,11 @@ export const Subtitle = styled.Text`
 export const Footer = styled.View`
   padding: 20px 24px;
   margin-bottom: ${getBottomSpace()}px;
+`
+
+export const Aviso = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 50px;
 `

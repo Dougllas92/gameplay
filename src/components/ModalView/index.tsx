@@ -3,19 +3,15 @@ import { ModalProps } from 'react-native'
 
 import { 
   Wrapper,
-  Overlay,
-  Close
+  Overlay
 } from './styles'
-
-import Background from '../Background'
 
 type Props = ModalProps & {
   children: ReactNode
-  closedModal?: () => void
 }
 
 
-const ModalView = ({ children, closedModal, ...props}: Props) => {
+const ModalView: React.FC<Props> = ({ children, ...props}) => {
   return(
     //@ts-ignore
     <Wrapper

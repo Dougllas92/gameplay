@@ -14,7 +14,7 @@ type Props = {
   iconId: string | null
 }
 
-const GuildIcon = ({ guildId, iconId }: Props): JSX.Element => {
+const GuildIcon: React.FC<Props> = ({ guildId, iconId }) => {
   const uri = `${CDN_IMAGE}/icons/${guildId}/${iconId}.png`
   
   return(

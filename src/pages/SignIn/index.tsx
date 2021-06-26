@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native'
 
 import { 
@@ -48,7 +47,7 @@ const SignIn: React.FC = () => {
             favoritos com seus amigos
           </Subtitle>
 
-          {loading ? <ActivityIndicator color={colors.heading} />
+          {loading ? <ActivityIndicator color={colors.primary} />
             :
             <ButtonIcon 
               title='Entrar com Discord'

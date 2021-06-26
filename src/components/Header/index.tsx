@@ -15,7 +15,7 @@ type Props = {
   action?: ReactNode
 }
 
-const Header = ({ title, action}: Props): JSX.Element => {
+const Header: React.FC<Props> = ({ title, action}) => {
   const { colors } = useTheme()
   const navigation = useNavigation()
 

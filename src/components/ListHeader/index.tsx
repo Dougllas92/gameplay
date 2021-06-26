@@ -11,7 +11,7 @@ type Props = {
   subtitle: string
 }
 
-const ListHeader = ({ title, subtitle }: Props): JSX.Element => {
+const ListHeader: React.FC<Props> = ({ title, subtitle }) => {
   return(
     <Wrapper>
       <Title>{title}</Title>

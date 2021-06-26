@@ -14,12 +14,12 @@ type Props = {
   hasCheckBox?: boolean
 }
 
-const CategorySelect = ({ 
+const CategorySelect: React.FC<Props> = ({ 
   categorySelected, 
   titleAnimated, 
   contentAnimated,
   hasCheckBox = false,
-  setCategory }: Props): JSX.Element => {
+  setCategory }) => {
   return(
     <Wrapper
       horizontal

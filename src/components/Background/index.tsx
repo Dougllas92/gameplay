@@ -7,7 +7,7 @@ type Props = {
   children: ReactNode
 }
 
-const Background = ({ children }: Props): JSX.Element => {
+const Background: React.FC<Props> = ({ children }) => {
   const { colors } = useTheme()
   return(
     <Wrapper

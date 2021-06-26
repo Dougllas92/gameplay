@@ -10,7 +10,7 @@ type Props = {
   urlImage: string
 }
 
-const Avatar = ({ urlImage }: Props): JSX.Element => {
+const Avatar: React.FC<Props> = ({ urlImage }) => {
   const { colors } = useTheme()
 
   return(

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTheme } from 'styled-components/native'
 
 import { 
   Wrapper,
@@ -10,26 +11,20 @@ import {
 
 import Background from '../../components/Background'
 import Button from '../../components/Button'
-import { useTheme } from 'styled-components/native'
-import { useAuth } from '../../hooks/auth'
 
+import { useAuth } from '../../hooks/auth'
 
 type Props = {
   handleCloseModal: () => void
 }
 
-const Logout = ({ handleCloseModal }: Props): JSX.Element => {
+const Logout: React.FC<Props> = ({ handleCloseModal }) => {
   const { colors } = useTheme()
   const { SignOut } = useAuth()
 
-  function handleTeste() {
-    console.log('asd')
-  }
-
   return(
     <Wrapper>
-      <Background>
-        
+      <Background>        
         <Header>
           <Title>Deseja sair do Game</Title>
           <Play>Play</Play>
